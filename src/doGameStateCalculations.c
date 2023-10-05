@@ -67,6 +67,12 @@ void checkCollisions(GameState *gameState)
             gameState->ball.vx = MAX_BALL_VELOCITY;
         }
         gameState->ball.vx *= -1;
+
+        // Randomly invert y velocity
+        if (rand() % 2 == 0)
+        {
+            gameState->ball.vy *= -1;
+        }
     }
 
     // Check for collision with top and bottom of paddles

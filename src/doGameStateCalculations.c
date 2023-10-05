@@ -159,11 +159,30 @@ void calculateAIMove(GameState *gameState, GameOptions *gameOptions)
     {
         if (gameState->ball.vx > 0 && gameState->ball.x > SCREEN_WIDTH / 6)
         {
-            if (gameState->ball.y < gameState->paddles[PLAYER_2].y)
+            // Simulate the ball's trajectory and move the paddle to where the ball will be once it hits the right side of the screen
+            int ballX = gameState->ball.x;
+            int ballY = gameState->ball.y;
+            int ballVX = gameState->ball.vx;
+            int ballVY = gameState->ball.vy;
+
+            while (ballX < SCREEN_WIDTH)
+            {
+                ballX += ballVX;
+                ballY += ballVY;
+
+                if (ballY < 0 || ballY > SCREEN_HEIGHT)
+                {
+                    ballVY *= -1;
+                }
+            }
+
+            int finalBallY = ballY;
+
+            if (gameState->paddles[PLAYER_2].y > finalBallY + PADDLE_VELOCITY)
             {
                 gameState->paddles[PLAYER_2].vy = -PADDLE_VELOCITY;
             }
-            else if (gameState->ball.y > gameState->paddles[PLAYER_2].y)
+            else if (gameState->paddles[PLAYER_2].y < finalBallY - PADDLE_VELOCITY)
             {
                 gameState->paddles[PLAYER_2].vy = PADDLE_VELOCITY;
             }

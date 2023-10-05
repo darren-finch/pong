@@ -9,7 +9,7 @@ const int SCREEN_HEIGHT = 600;
 const int PADDLE_MARGIN = 20;
 
 const int PADDLE_WIDTH = 20;
-const int PADDLE_HEIGHT = 150;
+const int PADDLE_HEIGHT = 100;
 
 const int BALL_WIDTH = 20;
 const int BALL_HEIGHT = 20;

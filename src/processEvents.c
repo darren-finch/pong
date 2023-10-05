@@ -2,7 +2,7 @@
 #include <SDL2/SDL.h>
 #include "objects.h"
 #include "constants.h"
-#include "resetGameState.h"s
+#include "resetGameState.h"
 
 bool processEvents(SDL_Window *window, GameState *gameState)
 {

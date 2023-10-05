@@ -4,6 +4,16 @@
 #include "objects.h"
 #include "constants.h"
 
+bool checkGameOver(GameState *gameState)
+{
+    if (gameState->player1Score >= TARGET_SCORE || gameState->player2Score >= TARGET_SCORE)
+    {
+        gameState->gameOver = true;
+        return true;
+    }
+    return false;
+}
+
 void checkCollisions(GameState *gameState)
 {
     // Check for collision with top and bottom of screen
@@ -95,6 +105,82 @@ void checkCollisions(GameState *gameState)
     }
 }
 
+void calculateAIMove(GameState *gameState, GameOptions *gameOptions)
+{
+    switch (gameOptions->difficulty)
+    {
+    case EASY:
+    {
+        if (gameState->ball.vx > 0 && gameState->ball.x > (SCREEN_WIDTH / 3) * 2)
+        {
+            if (gameState->ball.y < gameState->paddles[PLAYER_2].y)
+            {
+                gameState->paddles[PLAYER_2].vy = -PADDLE_VELOCITY;
+            }
+            else if (gameState->ball.y > gameState->paddles[PLAYER_2].y)
+            {
+                gameState->paddles[PLAYER_2].vy = PADDLE_VELOCITY;
+            }
+            else
+            {
+                gameState->paddles[PLAYER_2].vy = 0;
+            }
+        }
+        else
+        {
+            gameState->paddles[PLAYER_2].vy = 0;
+        }
+    }
+    break;
+    case MEDIUM:
+    {
+        if (gameState->ball.vx > 0 && gameState->ball.x > SCREEN_WIDTH / 2)
+        {
+            if (gameState->ball.y < gameState->paddles[PLAYER_2].y)
+            {
+                gameState->paddles[PLAYER_2].vy = -PADDLE_VELOCITY;
+            }
+            else if (gameState->ball.y > gameState->paddles[PLAYER_2].y)
+            {
+                gameState->paddles[PLAYER_2].vy = PADDLE_VELOCITY;
+            }
+            else
+            {
+                gameState->paddles[PLAYER_2].vy = 0;
+            }
+        }
+        else
+        {
+            gameState->paddles[PLAYER_2].vy = 0;
+        }
+    }
+    break;
+    case HARD:
+    {
+        if (gameState->ball.vx > 0 && gameState->ball.x > SCREEN_WIDTH / 6)
+        {
+            if (gameState->ball.y < gameState->paddles[PLAYER_2].y)
+            {
+                gameState->paddles[PLAYER_2].vy = -PADDLE_VELOCITY;
+            }
+            else if (gameState->ball.y > gameState->paddles[PLAYER_2].y)
+            {
+                gameState->paddles[PLAYER_2].vy = PADDLE_VELOCITY;
+            }
+            else
+            {
+                gameState->paddles[PLAYER_2].vy = 0;
+            }
+        }
+        else
+        {
+            gameState->paddles[PLAYER_2].vy = 0;
+        }
+    }
+    break;
+    }
+}
+
 void moveGameObjects(GameState *gameState)
 {
     gameState->paddles[PLAYER_1].y += gameState->paddles[PLAYER_1].vy;
@@ -104,17 +190,7 @@ void moveGameObjects(GameState *gameState)
     gameState->ball.y += gameState->ball.vy;
 }
 
-bool checkGameOver(GameState *gameState)
-{
-    if (gameState->player1Score >= TARGET_SCORE || gameState->player2Score >= TARGET_SCORE)
-    {
-        gameState->gameOver = true;
-        return true;
-    }
-    return false;
-}
-
-void doGameStateCalculations(GameState *gameState)
+void doGameStateCalculations(GameState *gameState, GameOptions *gameOptions)
 {
     if (checkGameOver(gameState))
     {
@@ -122,5 +198,6 @@ void doGameStateCalculations(GameState *gameState)
     }
 
     checkCollisions(gameState);
+    calculateAIMove(gameState, gameOptions);
     moveGameObjects(gameState);
 }

@@ -7,6 +7,13 @@
 
 typedef enum
 {
+    EASY = 1,
+    MEDIUM = 2,
+    HARD = 3
+} AIDifficulty;
+
+typedef enum
+{
     PLAYER_1 = 0,
     PLAYER_2 = 1
 } Player;
@@ -36,10 +43,16 @@ typedef struct
 
 typedef struct
 {
+    AIDifficulty difficulty;
+} GameOptions;
+
+typedef struct
+{
     SDL_Window *window;
     SDL_Renderer *renderer;
     TTF_Font *font;
     GameState *gameState;
+    GameOptions *gameOptions;
 } Game;
 
 #endif

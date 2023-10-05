@@ -20,10 +20,10 @@ int main(int argc, char *argv[])
     while (!done)
     {
         // Events
-        done = processEvents(game->window, game->gameState);
+        done = processEvents(game->window, game->gameState, game->gameOptions);
 
         // Logic
-        doGameStateCalculations(game->gameState);
+        doGameStateCalculations(game->gameState, game->gameOptions);
 
         // Render
         renderGame(game);

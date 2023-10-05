@@ -66,15 +66,21 @@ void renderText(SDL_Renderer *renderer, TTF_Font *font, GameState *gameState)
     {
         if (gameState->player1Score > gameState->player2Score)
         {
-            int scoreStringLength = snprintf(NULL, 0, "Player 1 Wins! Press Space to Restart.");
+            int scoreStringLength = snprintf(NULL, 0, "P1 Wins! Press 1, 2, or 3 to restart.");
             scoreString = malloc(scoreStringLength + 1);
-            sprintf(scoreString, "Player 1 Wins! Press Space to Restart.");
+            sprintf(scoreString, "P1 Wins! Press 1, 2, or 3 to restart.");
+        }
+        else if (gameState->player1Score < gameState->player2Score)
+        {
+            int scoreStringLength = snprintf(NULL, 0, "P2 Wins! Press 1, 2, or 3 to restart.");
+            scoreString = malloc(scoreStringLength + 1);
+            sprintf(scoreString, "P2 Wins! Press 1, 2, or 3 to restart.");
         }
         else
         {
-            int scoreStringLength = snprintf(NULL, 0, "Player 2 Wins! Press Space to Restart.");
-            scoreString = malloc(scoreStringLength + 1);
-            sprintf(scoreString, "Player 2 Wins! Press Space to Restart.");
+            int startGameStringLength = snprintf(NULL, 0, "Press 1 for ez, 2 for med, 3 for hd.");
+            scoreString = malloc(startGameStringLength + 1);
+            sprintf(scoreString, "Press 1 for ez, 2 for med, 3 for hd.");
         }
     }
     else

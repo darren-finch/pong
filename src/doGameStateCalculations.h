@@ -3,6 +3,6 @@
 
 #include "objects.h"
 
-void doGameStateCalculations(GameState* gameState);
+void doGameStateCalculations(GameState *gameState, GameOptions *gameOptions);
 
 #endif

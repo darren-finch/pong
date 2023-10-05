@@ -1,9 +1,9 @@
 #include "objects.h"
 #include "constants.h"
 
-void resetGameState(GameState *gameState)
+void resetGameState(GameState *gameState, bool gameOver)
 {
-    gameState->gameOver = false;
+    gameState->gameOver = gameOver;
     gameState->player1Score = 0;
     gameState->player2Score = 0;
 
@@ -23,6 +23,15 @@ void resetGameState(GameState *gameState)
     gameState->ball.y = SCREEN_HEIGHT / 2;
     gameState->ball.w = BALL_WIDTH;
     gameState->ball.h = BALL_HEIGHT;
-    gameState->ball.vx = BALL_VELOCITY * (random() % 2 == 0 ? 1 : -1);
-    gameState->ball.vy = BALL_VELOCITY * (random() % 2 == 0 ? 1 : -1);
+
+    if (gameOver)
+    {
+        gameState->ball.vx = 0;
+        gameState->ball.vy = 0;
+    }
+    else
+    {
+        gameState->ball.vx = BALL_VELOCITY * (random() % 2 == 0 ? 1 : -1);
+        gameState->ball.vy = BALL_VELOCITY * (random() % 2 == 0 ? 1 : -1);
+    }
 }

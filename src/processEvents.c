@@ -4,7 +4,7 @@
 #include "constants.h"
 #include "resetGameState.h"
 
-bool processEvents(SDL_Window *window, GameState *gameState)
+bool processEvents(SDL_Window *window, GameState *gameState, GameOptions *gameOptions)
 {
     bool done = false;
     SDL_Event event;
@@ -29,11 +29,23 @@ bool processEvents(SDL_Window *window, GameState *gameState)
         break;
         case SDL_KEYDOWN:
         {
-            if (event.key.keysym.sym == SDLK_SPACE)
+            if (event.key.keysym.sym == SDLK_1 && gameState->gameOver)
             {
-                resetGameState(gameState);
+                gameOptions->difficulty = EASY;
+                resetGameState(gameState, false);
+            }
+            else if (event.key.keysym.sym == SDLK_2 && gameState->gameOver)
+            {
+                gameOptions->difficulty = MEDIUM;
+                resetGameState(gameState, false);
+            }
+            else if (event.key.keysym.sym == SDLK_3 && gameState->gameOver)
+            {
+                gameOptions->difficulty = HARD;
+                resetGameState(gameState, false);
             }
         }
+        break;
         }
     }
 

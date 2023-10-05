@@ -5,6 +5,6 @@
 #include <SDL2/SDL.h>
 #include "objects.h"
 
-bool processEvents(SDL_Window *window, GameState *gameState);
+bool processEvents(SDL_Window *window, GameState *gameState, GameOptions *gameOptions);
 
 #endif

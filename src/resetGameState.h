@@ -3,6 +3,6 @@
 
 #include "objects.h"
 
-void resetGameState(GameState *gameState);
+void resetGameState(GameState *gameState, bool gameOver);
 
 #endif

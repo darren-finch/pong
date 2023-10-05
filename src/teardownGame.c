@@ -3,6 +3,7 @@
 
 void teardownGame(Game *game)
 {
+    free(game->gameOptions);
     free(game->gameState);
     free(game->font);
     SDL_DestroyRenderer(game->renderer);

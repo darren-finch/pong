@@ -42,9 +42,18 @@ GameState *initializeGameState()
 {
     GameState *gameState = malloc(sizeof(GameState));
 
-    resetGameState(gameState);
+    resetGameState(gameState, true);
 
     return gameState;
+}
+
+GameOptions *initializeGameOptions()
+{
+    GameOptions *gameOptions = malloc(sizeof(GameOptions));
+
+    gameOptions->difficulty = EASY;
+
+    return gameOptions;
 }
 
 Game *loadGame()
@@ -60,6 +69,7 @@ Game *loadGame()
     game->renderer = createRenderer(game->window);
     game->font = loadFont("assets/fonts/VT323-Regular.ttf", 48);
     game->gameState = initializeGameState();
+    game->gameOptions = initializeGameOptions();
 
     return game;
 }
